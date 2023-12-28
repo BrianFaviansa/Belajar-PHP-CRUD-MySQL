@@ -20,50 +20,59 @@
     </nav>
 
     <div class="container">
+        <form method="post" action="proses.php">
+            <div class="mb-3 row">
+                <label for="nim" class="col-sm-2 col-form-label">NIM</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nim" placeholder="Ex: 222410101001">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="nama" class="col-sm-2 col-form-label">Nama Mahasiswa</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nama" placeholder="Ex: Ucup Surucup">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="jkel" class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                <div class="col-sm-10">
+                    <select id="jkel" class="form-select"">
+                        <option selected>Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="foto" class="col-sm-2 col-form-label">Foto Mahasiswa</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" id="foto">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="alamat" rows="3"></textarea>
+                </div>
 
-        <div class="mb-3 row">
-            <label for="nim" class="col-sm-2 col-form-label">NIM</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="nim" placeholder="Ex: 222410101001">
+            <div class="mb-3 row mt-4">
+                <div class="col">
+                    <?php
+                        if(isset($_GET['ubah'])) {
+                    ?>
+                            <button type="submit" name="aksi" value="edit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Simpan Perubahan</button>
+                    <?php
+                        } else {
+                    ?>
+                        <button type="submit" name="aksi" value="add" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Tambahkan</button>
+                    <?php    
+                    }
+                    ?>
+                    <a href="index.php" type="button" class="btn btn-secondary"><i class="fa fa-reply" aria-hidden="true"></i>  Batal</a>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="nama" class="col-sm-2 col-form-label">Nama Mahasiswa</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="nama" placeholder="Ex: Ucup Surucup">
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="jkel" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-            <div class="col-sm-10">
-                <select id="jkel" class="form-select"">
-                    <option selected>Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="foto" class="col-sm-2 col-form-label">Foto Mahasiswa</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="file" id="foto">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" id="alamat" rows="3"></textarea>
-            </div>
-
-        <div class="mb-3 row mt-4">
-            <div class="col">
-                <button type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Simpan</button>
-                <a href="index.php" type="button" class="btn btn-secondary"><i class="fa fa-reply" aria-hidden="true"></i>  Batal</a>
-            </div>
-        </div>
-
-
-        </div>
+        </form>
     </div>
 
     </body>
