@@ -1,3 +1,15 @@
+<?php
+    include("koneksi.php");
+
+    $query = "SELECT * FROM tb_mahasiswa;";
+    $sql = mysqli_query($conn, $query);
+    
+    $no = 0;
+
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,34 +57,36 @@
                 </tr>
             </thead>
             <tbody>
+                <?php
+                    while ($result = mysqli_fetch_assoc($sql)) {
+                ?>
                 <tr>
-                    <td><center>1.</center></td>
-                    <td>222410101001</td>
-                    <td>Alexander Kurniawan</td>
-                    <td>Laki-laki</td>
+                    <td><center>
+                        <?php echo ++$no; ?>.
+                    </center></td>
                     <td>
-                        <img src="img/img1.jpg" style="width: 150px;">
+                        <?php echo $result["nim"]; ?>
                     </td>
-                    <td>Jl. Amim Bonjol</td>
                     <td>
-                        <a href="kelola.php?ubah=1" type="button" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
-                        <a href="proses.php?hapus=1" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                        <?php echo $result["nama"]; ?>
+                    </td>
+                    <td>
+                    <?php echo $result["jenis_kelamin"]; ?>
+                    </td>
+                    <td>
+                        <img src="img/<?php echo $result["foto"]; ?>" style="width: 150px;">
+                    </td>
+                    <td>
+                    <?php echo $result["alamat"]; ?>
+                    </td>
+                    <td>
+                        <a href="kelola.php?ubah=<?php echo $result["id_mahasiswa"]; ?>" type="button" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
+                        <a href="proses.php?hapus=<?php echo $result["id_mahasiswa"]; ?>" type="button" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus data tersebut?')"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
-                <tr>
-                    <td><center>2.</center></td>
-                    <td>222410101002</td>
-                    <td>Susi Susinti</td>
-                    <td>Perempuan</td>
-                    <td>
-                        <img src="img/img2.jpg" style="width: 150px;">
-                    </td>
-                    <td>Jl. Makmum Bonjol</td>
-                    <td>
-                        <a href="kelola.php?ubah=2" type="button" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>
-                        <a href="proses.php?hapus=2" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
+                <?php
+                    }
+                ?>
             </tbody>
             </table>
     </div>
