@@ -1,53 +1,31 @@
 <?php
-    include("koneksi.php");
+    include("fungsi.php");
+    session_start();
 
     if(isset($_POST['aksi'])) {
         if($_POST['aksi'] == "add") {
-
-            
-            $nim = $_POST["nim"];
-            $nama = $_POST["nama"];
-            $jenis_kelamin = $_POST["jenis_kelamin"];
-            $foto = $_FILES["foto"]["name"];
-            $alamat = $_POST["alamat"];
-
-            $dir = "img/";
-            $tmpFile = $_FILES["foto"]["tmp_name"];
-            move_uploaded_file($tmpFile, $dir.$foto); 
-
-
-            $query = "INSERT INTO tb_mahasiswa VALUES (null, '$nim', '$nama', '$jenis_kelamin', '$foto', '$alamat')";
-            $sql = mysqli_query($conn, $query);
-            if($sql) {
-                // echo "data berhasil ditambahkan <a href='index.php'>[Home]</a>";
+            $berhasil = tambahData($_POST, $_FILES);
+            if($berhasil) {
+                $_SESSION["eksekusi"] = "Data berhasil ditambahkan";
                 header("location: index.php");
             } else {
                 echo $query;
             }
-
-            // echo $nisn. " | ". $nama. " | ". $jenis_kelamin. " | ". $foto. " | ". $alamat;
-            // echo "<br>";
-            // echo "Tambah Data <a href='index.php'>[Home]</a>";
-        } else if($_POST['aksi'] == "edit") {
-            echo "Edit Data <a href='index.php'>[Home]</a>";
+        } else if($_POST['aksi'] == "edit") {      
+            $berhasil = ubahData($_POST, $_FILES);      
+            if($berhasil) {
+                $_SESSION["eksekusi"] = "Data berhasil diperbarui";
+                header("location: index.php");
+            } else {
+                echo $query;
+            }
         }
     }
     
     if(isset($_GET["hapus"])) {
-        $id_mahasiswa = $_GET["hapus"];
-
-        $queryShow = "SELECT * FROM tb_mahasiswa WHERE id_siswa = '$id_mahasiswa';";
-        $sqlShow = mysqli_query($conn, $queryShow);
-        $result = mysqli_fetch_assoc($sqlShow);
-
-        unlink("img/".$result["foto"]);
-
-        $query = "DELETE FROM tb_mahasiswa WHERE id_siswa = '$id_mahasiswa';";
-        $sql = mysqli_query($conn, $query);
-
-
-        if($sql) {
-            // echo "data berhasil dihapus <a href='index.php'>[Home]</a>";
+        $berhasil = hapusData($_GET);
+        if($berhasil) {
+            $_SESSION["eksekusi"] = "Data berhasil dihapus";
             header("location: index.php");
         } else {
             echo $query;
